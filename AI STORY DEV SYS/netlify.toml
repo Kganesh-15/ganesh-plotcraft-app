@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  # Publish only the Vite build output (relative to this base directory),
+  # not the whole project folder with source files and node_modules.
+  publish = "dist"
+
+[build.environment]
+  # These variables hold non-secret settings (booleans, a port number, model/space names).
+  # Their short values like "true", "false" or "5000" naturally appear in source code and
+  # dependencies, which triggers false positives in Netlify's secrets scanning.
+  # Real secrets (GEMINI_API_KEY, OPENAI_API_KEY, OPENROUTER_API_KEY, HF_TOKEN) are still scanned.
+  SECRETS_SCAN_OMIT_KEYS = "ALLOW_FREE_IMAGE_FALLBACK,USE_PAID_MODEL,PORT,OLLAMA_MODEL,HF_VIDEO_SPACE,HF_VIDEO_SPACES"
+
+# Single-page app fallback so client-side routes load index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
